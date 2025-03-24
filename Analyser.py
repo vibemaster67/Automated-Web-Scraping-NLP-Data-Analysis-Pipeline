@@ -2,14 +2,14 @@ import pandas as pd
 import os
 import re
 
-# File paths (unchanged from your setup)
-excel_path = "C:\\Users\\mihir\\OneDrive\\Desktop\\Mihir\\Blackcoffer Assignment\\Output Data Structure_backup.xlsx"
-files_directory = "C:\\Users\\mihir\\OneDrive\\Desktop\\Mihir\\Blackcoffer Assignment\\Scraped data"
-dictionary_file = "C:\\Users\\mihir\\OneDrive\\Desktop\\Mihir\\Blackcoffer Assignment\\MasterDictionary-20250310T040942Z-001\\MasterDictionary\\positive-words.txt"
-stop_words_directory = "C:\\Users\\mihir\\OneDrive\\Desktop\\Mihir\\Blackcoffer Assignment\\StopWords-20250310T040942Z-001\\StopWords"
-neg_dictionary_file = "C:\\Users\\mihir\\OneDrive\\Desktop\\Mihir\\Blackcoffer Assignment\\MasterDictionary-20250310T040942Z-001\\MasterDictionary\\negative-words.txt"
+# File paths 
+excel_path = "...."
+files_directory = "..."
+dictionary_file = "..."
+stop_words_directory = "..."
+neg_dictionary_file = "..."
 
-# Load stop words, positive, and negative dictionaries (unchanged)
+# Load stp words, positive, and negative dictionaries 
 def load_stop_words(directory):
     stop_words = set()
     for file in os.listdir(directory):
@@ -32,7 +32,7 @@ with open(neg_dictionary_file, "r", encoding="utf-8", errors="ignore") as f:
 
 df = pd.read_excel(excel_path, index_col=0)
 
-# Positive and negative score functions (unchanged except for storing word_count)
+# ppositive and negative score functions 
 def count_positive_words(file_path, dictionary_words, stop_words):
     try:
         with open(file_path, "r", encoding="utf-8", errors="ignore") as f:
@@ -57,7 +57,7 @@ def count_negative_words(file_path, neg_dictionary_words, stop_words):
         print(f"Error reading {file_path}: {e}")
         return 0, 0
 
-# Ensure all required columns exist (since you said they already do, this is just a sanity check)
+# ensure all required columns exist 
 required_columns = ['POSITIVE SCORE', 'NEGATIVE SCORE', 'WORD COUNT', 'AVG SENTENCE LENGTH', 
                     'PERCENTAGE OF COMPLEX WORDS', 'FOG INDEX', 'AVG NUMBER OF WORDS PER SENTENCE', 
                     'COMPLEX WORD COUNT', 'SYLLABLE PER WORD', 'PERSONAL PRONOUNS', 'AVG WORD LENGTH']
@@ -81,7 +81,7 @@ for filename in df.index:
         df.at[filename, 'NEGATIVE SCORE'] = None
         df.at[filename, 'WORD COUNT'] = None
 
-# Calculate polarity and subjectivity scores (unchanged)
+# Calculate polarity and subjectivity scores 
 df['POLARITY SCORE'] = (df['POSITIVE SCORE'] - df['NEGATIVE SCORE']) / (df['POSITIVE SCORE'] + df['NEGATIVE SCORE'] + 0.000001)
 df['SUBJECTIVITY SCORE'] = (df['POSITIVE SCORE'] + df['NEGATIVE SCORE']) / (df['WORD COUNT'] + 0.000001)
 
