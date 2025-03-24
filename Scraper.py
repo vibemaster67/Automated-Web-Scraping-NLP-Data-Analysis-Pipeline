@@ -4,16 +4,16 @@ import pandas as pd
 from bs4 import BeautifulSoup
 import pandas as pd
 
-df = pd.read_excel(r"C:\Blackcoffer Assignment\Input.xlsx", engine='openpyxl')
+df = pd.read_excel(r"...", engine='openpyxl')
 
 urls = list(df['URL'])
 
 urls = list(df['URL'])  # List of URLs
 url_ids = list(df['URL_ID'])  # Corresponding list of URL_IDs
 
-# Function to create a valid filename from the URL_ID
+# Funct to create a valid filename from the URL_ID
 def create_valid_filename(url_id):
-    # Ensuring the filename is valid (in case URL_ID has any special characters)
+    
     return str(url_id).replace(":", "_").replace("/", "_").replace("?", "").replace("&", "_").replace("=", "_")
 
 # Function to fetch and save content from a URL
@@ -26,7 +26,7 @@ def fetch_and_save_content(url, url_id):
         # Extract the title of the article
         title = soup.find('h1').text.strip() if soup.find('h1') else "Title not found"
 
-        # Look for the content in the div with class 'td-post-content tagdiv-type'
+       
         content_section = soup.find('div', class_='td-post-content tagdiv-type')
         if content_section:
             content = content_section.get_text(strip=True)  # Get the text from the content section
